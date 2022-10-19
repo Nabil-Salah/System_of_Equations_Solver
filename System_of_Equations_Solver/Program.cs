@@ -19,11 +19,11 @@ namespace System_of_Equations_Solver
         {
             return State.ONESOLUTION;
         }
-        protected void makeCurrentLead(int column,int row)
+        protected void interChanege(int column,int row)//makeCurrentLead
         {
 
         }
-        protected void makeLeadOne(int column,int row)
+        protected void scalling(int column,int row)//makeLeadOne
         {
 
         }
