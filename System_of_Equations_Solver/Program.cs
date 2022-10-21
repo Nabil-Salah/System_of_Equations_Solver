@@ -27,7 +27,7 @@ namespace System_of_Equations_Solver
         {
 
         }
-        protected void replacement(int column, int row)
+        protected void replacement(int column, int row)//make all beneath lead equal 1
         {
 
         }
@@ -41,7 +41,12 @@ namespace System_of_Equations_Solver
         }
         public override void echelonForm()
         {
-
+            for (int i = 0; i < augmantedMatrix.Count; i++)
+            {
+                interChanege(i, i);
+                scalling(i, i);
+                replacement(i, i);
+            }
         }
 
     }
@@ -51,13 +56,19 @@ namespace System_of_Equations_Solver
         {
 
         }
-        private void gaussJordonExtension()
+        private void gaussJordonExtension(int column,int row)
         {
-
+            
         }
         public override void echelonForm()
         {
-
+            for (int i = 0; i < augmantedMatrix.Count; i++)
+            {
+                interChanege(i, i);
+                scalling(i, i);
+                replacement(i, i);
+                gaussJordonExtension(i, i);
+            }
         }
 
     }
@@ -65,6 +76,10 @@ namespace System_of_Equations_Solver
     {
         static void Main(string[] args)
         {
+            /// <summary>
+            /// checked before of all column zero
+            /// checcked for valisdity
+            /// </summary>
             Console.WriteLine("Let's Start Work!");
         }
     }
