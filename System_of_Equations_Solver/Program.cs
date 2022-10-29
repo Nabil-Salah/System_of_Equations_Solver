@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace System_of_Equations_Solver
 {
     public abstract class SolveSystem
     {
-        protected enum State{ ONESOLUTION,INFINTYSOLUTION,NOSOLUTION};
+        protected enum State { ONESOLUTION, INFINTYSOLUTION, NOSOLUTION };
         protected List<List<int>> augmantedMatrix;
         SolveSystem()
         {
@@ -48,12 +47,13 @@ namespace System_of_Equations_Solver
             {
                 return State.NOSOLUTION;
             }
+            return State.ONESOLUTION;
         }
-        protected void interChanege(int column,int row)//makeCurrentLead
+        protected void interChanege(int column, int row)//makeCurrentLead
         {
 
         }
-        protected void scalling(int column,int row)//makeLeadOne
+        protected void scalling(int column, int row)//makeLeadOne
         {
 
         }
@@ -65,7 +65,7 @@ namespace System_of_Equations_Solver
     }
     public class GaussianElimination : SolveSystem
     {
-        GaussianElimination(List<List<int>> augmantedMatrix): base(augmantedMatrix)
+        GaussianElimination(List<List<int>> augmantedMatrix) : base(augmantedMatrix)
         {
 
         }
@@ -86,9 +86,9 @@ namespace System_of_Equations_Solver
         {
 
         }
-        private void gaussJordonExtension(int column,int row)
+        private void gaussJordonExtension(int column, int row)
         {
-            
+
         }
         public override void echelonForm()
         {
