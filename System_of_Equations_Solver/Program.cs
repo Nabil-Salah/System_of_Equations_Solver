@@ -47,7 +47,6 @@ namespace System_of_Equations_Solver
             {
                 return State.NOSOLUTION;
             }
-            return State.ONESOLUTION;
         }
         protected void interChanege(int column, int row)//makeCurrentLead
         {
