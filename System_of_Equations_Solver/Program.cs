@@ -17,6 +17,36 @@ namespace System_of_Equations_Solver
         }
         protected State checkSolve()
         {
+            int num_columns = augmantedMatrix[0].Count;
+            int num_rows = augmantedMatrix.Count;
+            int nonzerocnt = 0;
+            for (int i = num_columns - 1; i >= 0; --i)
+            {
+                if (augmantedMatrix[num_rows - 1][i] != 0)
+                {
+                    ++nonzerocnt;
+                }
+            }
+            if (nonzerocnt == 0)
+            {
+                return State.INFINTYSOLUTION;
+            }
+            else if ((nonzerocnt == 1) && (augmantedMatrix[num_rows - 1][num_columns - 1] != 0))
+            {
+                return State.NOSOLUTION;
+            }
+            else if ((nonzerocnt == 1) && (augmantedMatrix[num_rows - 1][num_columns - 1] == 0))
+            {
+                return State.ONESOLUTION;
+            }
+            else if ((nonzerocnt == 2) && (augmantedMatrix[num_rows - 1][num_columns - 1] != 0))
+            {
+                return State.ONESOLUTION;
+            }
+            else
+            {
+                return State.NOSOLUTION;
+            }
             return State.ONESOLUTION;
         }
         protected void interChanege(int column,int row)//makeCurrentLead
