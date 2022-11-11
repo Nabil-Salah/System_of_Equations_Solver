@@ -6,12 +6,12 @@ namespace System_of_Equations_Solver
     public abstract class SolveSystem
     {
         protected enum State { ONESOLUTION, INFINTYSOLUTION, NOSOLUTION };
-        protected List<List<int>> augmantedMatrix;
+        protected List<List<double>> augmantedMatrix;
         SolveSystem()
         {
-            this.augmantedMatrix = new List<List<int>>();
+            this.augmantedMatrix = new List<List<double>>();
         }
-        public SolveSystem(List<List<int>> augmantedMatrix)
+        public SolveSystem(List<List<double>> augmantedMatrix)
         {
             this.augmantedMatrix = augmantedMatrix;
         }
@@ -50,7 +50,26 @@ namespace System_of_Equations_Solver
         }
         protected void interChanege(int column, int row)//makeCurrentLead
         {
-
+            int pos = row;
+            for (int i = row; i < augmantedMatrix.Count; i++)
+            {
+                if (augmantedMatrix[i][column] != 0) break;
+            }
+            if (pos == augmantedMatrix.Count || pos == row) return;
+            for(int i = 0; i < augmantedMatrix[pos].Count; i++)
+            {
+                double temp = augmantedMatrix[pos][i];
+                augmantedMatrix[pos][i] = augmantedMatrix[row][i];
+                augmantedMatrix[row][i]=temp;
+            }
+            /*yousef
+                
+                
+                //  R(row) <-> R(pos)  
+                //print() array
+                
+                 
+             */
         }
         protected void scalling(int column, int row)//makeLeadOne
         {
@@ -61,21 +80,39 @@ namespace System_of_Equations_Solver
             for (int r = row+1; r < row; r++)
             { // for each row ...
                 /* calculate divisor and multiplier */
-                int d = augmantedMatrix[row][column];
+                double d = augmantedMatrix[row][column];
                 if (d == 0) continue;
-                int m = augmantedMatrix[r][column] / d;
-
+                double m = augmantedMatrix[r][column] / d;
+                /*yousef
+                
+                
+                //  R(r) - (augmantedMatrix[r][column] / d)R(row) -> R(r)  
+                //print() array
+                
+                 
+                 */
                 for (int c = 0; c < column; c++)
                 { // for each column ...
                     augmantedMatrix[r][c] -= augmantedMatrix[r][c] * m;  // make other = 0
                 }
             }
         }
+        public void print()
+        {
+            for(int i = 0; i < augmantedMatrix.Count; i++)
+            {
+                for(int j = 0; j < augmantedMatrix[0].Count; j++)
+                {
+                    Console.Write($"{augmantedMatrix[i][j]} ");
+                }
+                Console.WriteLine();
+            }
+        }
         public abstract void echelonForm();
     }
     public class GaussianElimination : SolveSystem
     {
-        GaussianElimination(List<List<int>> augmantedMatrix) : base(augmantedMatrix)
+        public GaussianElimination(List<List<double>> augmantedMatrix) : base(augmantedMatrix)
         {
 
         }
@@ -87,12 +124,47 @@ namespace System_of_Equations_Solver
                 scalling(i, i);
                 replacement(i, i);
             }
-        }
+            /*yousef
+                
+                
+                //  final array  
+                //print() array
+                
+                 
+            */
+            State solvability = checkSolve();
+            if (solvability == State.NOSOLUTION)
+            {
+                /*yousef
+                
+                //array doesn't have solution
+                
+                 
+            */
+            }else if(solvability == State.INFINTYSOLUTION)
+            {
+                /*yousef
+                
+                //array have infinite solutions
+                
+                 
+            */
+            }
+            else
+            {
+                /*yousef
+                
+                //array have one solution
+                
+                 
+            */
 
+            }
+        }
     }
     public class GaussJordonElimination : SolveSystem
     {
-        GaussJordonElimination(List<List<int>> augmantedMatrix) : base(augmantedMatrix)
+        public GaussJordonElimination(List<List<double>> augmantedMatrix) : base(augmantedMatrix)
         {
 
         }
@@ -101,9 +173,9 @@ namespace System_of_Equations_Solver
             for (int r = row - 1; r >= 0; r--)
             { // for each row ...
                 /* calculate divisor and multiplier */
-                int d = augmantedMatrix[row][column];
+                double d = augmantedMatrix[row][column];
                 if (d == 0) continue;
-                int m = augmantedMatrix[r][column] / d;
+                double m = augmantedMatrix[r][column] / d;
 
                 for (int c = 0; c < column; c++)
                 { // for each column ...
@@ -120,6 +192,47 @@ namespace System_of_Equations_Solver
                 replacement(i, i);
                 gaussJordonExtension(i, i);
             }
+            /*yousef
+                
+                
+                //  final array  
+                //print() array
+                
+                 
+            */
+            State solvability = checkSolve();
+            if (solvability == State.NOSOLUTION)
+            {
+                /*yousef
+                
+                //array doesn't have solution
+                
+                 
+            */
+            }
+            else if (solvability == State.INFINTYSOLUTION)
+            {
+                /*yousef
+                
+                //array have infinite solutions
+                
+                 
+            */
+            }
+            else
+            {
+                /*yousef
+                
+                //array have one solution
+                
+                 
+                
+                /*for(int i = 0; i < augmantedMatrix.Count; i++)
+                {
+                    Console.WriteLine($"X{i + 1} = {augmantedMatrix[i][i]}");
+                }*/
+
+            }
         }
 
     }
@@ -131,7 +244,30 @@ namespace System_of_Equations_Solver
             /// checked before of all column zero
             /// checcked for valisdity
             /// </summary>
-            Console.WriteLine("Let's Start Work!");
+            List<List<double>> a = new List<List<double>>();
+            int sz= int.Parse(Console.ReadLine());
+            //take inpput
+            for(int i = 0; i < sz; i++)
+            {
+                a.Add(new List<double>(sz));
+                for(int j = 0; j < sz; j++)
+                {
+                    double tak = double.Parse(Console.ReadLine());
+                    a[i].Add(tak);
+                }
+            }
+            int opt = int.Parse(Console.ReadLine());
+            
+            if (opt == 1)
+            {
+                GaussianElimination g = new GaussianElimination(a);
+                g.echelonForm();
+            }
+            else
+            {
+                GaussJordonElimination g = new GaussJordonElimination(a);
+                g.echelonForm();
+            }
         }
     }
 }
