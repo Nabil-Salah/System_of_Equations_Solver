@@ -58,7 +58,18 @@ namespace System_of_Equations_Solver
         }
         protected void replacement(int column, int row)//make all beneath lead equal 1
         {
+            for (int r = row+1; r < row; r++)
+            { // for each row ...
+                /* calculate divisor and multiplier */
+                int d = augmantedMatrix[row][column];
+                if (d == 0) continue;
+                int m = augmantedMatrix[r][column] / d;
 
+                for (int c = 0; c < column; c++)
+                { // for each column ...
+                    augmantedMatrix[r][c] -= augmantedMatrix[r][c] * m;  // make other = 0
+                }
+            }
         }
         public abstract void echelonForm();
     }
@@ -87,7 +98,18 @@ namespace System_of_Equations_Solver
         }
         private void gaussJordonExtension(int column, int row)
         {
+            for (int r = row - 1; r >= 0; r--)
+            { // for each row ...
+                /* calculate divisor and multiplier */
+                int d = augmantedMatrix[row][column];
+                if (d == 0) continue;
+                int m = augmantedMatrix[r][column] / d;
 
+                for (int c = 0; c < column; c++)
+                { // for each column ...
+                    augmantedMatrix[r][c] -= augmantedMatrix[r][c] * m;  // make other = 0
+                }
+            }
         }
         public override void echelonForm()
         {
