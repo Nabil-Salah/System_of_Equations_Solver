@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace System_of_Equations_Solver
 {
-    public abstract class SolveSystem
+    public class SolveSystem
     {
         protected enum State { ONESOLUTION, INFINTYSOLUTION, NOSOLUTION };
         protected List<List<double>> augmantedMatrix;
@@ -108,7 +108,8 @@ namespace System_of_Equations_Solver
                 Console.WriteLine();
             }
         }
-        public abstract void echelonForm();
+        public void echelonForm() { 
+        }
     }
     public class GaussianElimination : SolveSystem
     {
@@ -116,7 +117,7 @@ namespace System_of_Equations_Solver
         {
 
         }
-        public override void echelonForm()
+        public new void echelonForm()
         {
             for (int i = 0; i < augmantedMatrix.Count; i++)
             {
@@ -183,7 +184,7 @@ namespace System_of_Equations_Solver
                 }
             }
         }
-        public override void echelonForm()
+        public new void echelonForm()
         {
             for (int i = 0; i < augmantedMatrix.Count; i++)
             {
