@@ -13,6 +13,13 @@ namespace System_of_Equations_Solver
         }
         public SolveSystem(List<List<double>> augmantedMatrix)
         {
+            if(augmantedMatrix.Count != augmantedMatrix[0].Count)
+            {
+                Console.WriteLine("not square to be solved");
+                /*
+                 *exit program
+                 */
+            }
             this.augmantedMatrix = augmantedMatrix;
         }
         protected State checkSolve()
@@ -159,6 +166,33 @@ namespace System_of_Equations_Solver
                 
                  
             */
+                for (int i = 0; i < augmantedMatrix.Count; i++)
+                {
+                    int row = i;
+                    int column = i;
+                    for (int r = row - 1; r >= 0; r--)
+                    { // for each row ...
+                        /* calculate divisor and multiplier */
+                        double d = augmantedMatrix[row][column];
+                        if (d == 0) continue;
+                        double m = augmantedMatrix[r][column] / d;
+
+                        for (int c = 0; c < column; c++)
+                        { // for each column ...
+                            augmantedMatrix[r][c] -= augmantedMatrix[r][c] * m;  // make other = 0
+                        }
+                    }
+                }
+                /*yousef
+                
+                //array have one solution
+                
+                 
+                
+                /*for(int i = 0; i < augmantedMatrix.Count; i++)
+                {
+                    Console.WriteLine($"X{i + 1} = {augmantedMatrix[i][i]}");
+                }*/
 
             }
         }
