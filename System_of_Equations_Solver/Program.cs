@@ -80,7 +80,11 @@ namespace System_of_Equations_Solver
         }
         protected void scalling(int column, int row)//makeLeadOne
         {
-
+            double x = 1 / augmantedMatrix[row][column];
+            for (int i = 0; i < augmantedMatrix[0].Count; i++)
+            {
+                augmantedMatrix[row][i] *= x;
+            }
         }
         protected void replacement(int column, int row)//make all beneath lead equal 1
         {
