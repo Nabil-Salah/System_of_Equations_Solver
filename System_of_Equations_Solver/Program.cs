@@ -13,13 +13,7 @@ namespace System_of_Equations_Solver
         }
         public SolveSystem(List<List<double>> augmantedMatrix)
         {
-            if(augmantedMatrix.Count != augmantedMatrix[0].Count)
-            {
-                Console.WriteLine("not square to be solved");
-                /*
-                 *exit program
-                 */
-            }
+            
             this.augmantedMatrix = augmantedMatrix;
         }
         protected State checkSolve()
@@ -89,7 +83,7 @@ namespace System_of_Equations_Solver
         }
         protected void replacement(int column, int row)//make all beneath lead equal 1
         {
-            for (int r = row+1; r < row; r++)
+            for (int r = row+1; r < augmantedMatrix.Count; r++)
             { // for each row ...
                 /* calculate divisor and multiplier */
                 double d = augmantedMatrix[row][column];
@@ -103,9 +97,9 @@ namespace System_of_Equations_Solver
                 
                  
                  */
-                for (int c = 0; c < column; c++)
+                for (int c = 0; c < augmantedMatrix[0].Count; c++)
                 { // for each column ...
-                    augmantedMatrix[r][c] -= augmantedMatrix[r][c] * m;  // make other = 0
+                    augmantedMatrix[r][c] -= augmantedMatrix[row][c] * m;  // make other = 0
                 }
             }
         }
@@ -196,7 +190,7 @@ namespace System_of_Equations_Solver
                 
                 /*for(int i = 0; i < augmantedMatrix.Count; i++)
                 {
-                    Console.WriteLine($"X{i + 1} = {augmantedMatrix[i][i]}");
+                    Console.WriteLine($"X{i + 1} = {augmantedMatrix[i][augmantedMatrix[0].Count]}");
                 }*/
 
             }
@@ -216,10 +210,17 @@ namespace System_of_Equations_Solver
                 double d = augmantedMatrix[row][column];
                 if (d == 0) continue;
                 double m = augmantedMatrix[r][column] / d;
-
-                for (int c = 0; c < column; c++)
+                /*yousef
+                
+                
+                //  R(r) - (augmantedMatrix[r][column] / d)R(row) -> R(r)  
+                //print() array
+                
+                 
+                 */
+                for (int c = 0; c < augmantedMatrix[0].Count; c++)
                 { // for each column ...
-                    augmantedMatrix[r][c] -= augmantedMatrix[r][c] * m;  // make other = 0
+                    augmantedMatrix[r][c] -= augmantedMatrix[row][c] * m;  // make other = 0
                 }
             }
         }
@@ -269,7 +270,7 @@ namespace System_of_Equations_Solver
                 
                 /*for(int i = 0; i < augmantedMatrix.Count; i++)
                 {
-                    Console.WriteLine($"X{i + 1} = {augmantedMatrix[i][i]}");
+                    Console.WriteLine($"X{i + 1} = {augmantedMatrix[i][augmantedMatrix[0].Count]}");
                 }*/
 
             }
@@ -280,7 +281,7 @@ namespace System_of_Equations_Solver
     {
         static void Main(string[] args)
         {
-            /// <summary>
+            /*/// <summary>
             /// checked before of all column zero
             /// checcked for valisdity
             /// </summary>
@@ -307,7 +308,12 @@ namespace System_of_Equations_Solver
             {
                 GaussJordonElimination g = new GaussJordonElimination(a);
                 g.echelonForm();
-            }
+            }*/
+            List<List<double>> augmantedMatrix = new List<List<double>>(2);
+            augmantedMatrix.Add(new List<double>(3) { 1,2,3});
+            augmantedMatrix.Add(new List<double>(3) { 12,8,0});
+            GaussJordonElimination g = new GaussJordonElimination(augmantedMatrix);
+            g.echelonForm();
         }
     }
 }
